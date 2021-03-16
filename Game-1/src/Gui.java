@@ -87,7 +87,7 @@ public class Gui extends JFrame {
     }
 
     public void setShowInventory(Inventory i) {
-        this.inventory.setText(":::::::::::"+i.toString()+":::::::::::");
+        this.inventory.setText("There are 3 NPCs roaming around Simon , Niklas & Jonas  "+  "\n"  + " your current inventory " + i.toString()+":::::::::::");
     }
 
     // *******************

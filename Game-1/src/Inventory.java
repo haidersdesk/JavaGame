@@ -4,23 +4,42 @@ public class Inventory {
     private GameObject[] list;
 
 
-    public Inventory(int size){
+    public Inventory(int size, Gui g){
         list = new GameObject[size];
     }
+
+    public GameObject returnGameObject(String objectName){
+        for (GameObject g : list){
+            if(g.getName().equals(objectName)){
+                return g;
+            }
+        }
+        return null;
+    }
+
+
+
     //inv
-    public void addObject(GameObject go){
+    public boolean addObject(GameObject go){
         int index = getFirstEmptyIndex();
 
         if (index ==-1){
-            //index++;
+            System.out.println("No more space");
+            return false;
         }
         this.list[index] = go;
+        return true;
 
     }
 
+
     public void removeObject(GameObject go) {
-        int index=getFirstEmptyIndex();
-        this.list[index] = null;
+        for (int index = 0; index < list.length; index++) {
+            if (this.list[index] != null && this.list[index].equals(go)) {
+                this.list[index] = null;
+                return;
+            }
+        }
 
     }
 
@@ -29,15 +48,38 @@ public class Inventory {
         return Arrays.toString(this.list);
     }
 
-    private int getFirstEmptyIndex(){
+    public boolean contains(String objectName) {
+        for (GameObject go : this.list) {
+            if (go != null) {
+
+                if (go.getName().equals(objectName)) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    int getFirstEmptyIndex(){
 
         for (int i = 0; i<this.list.length; i++){
-            if (this.list[i] == null){
+            if (this.list[i] == null ){
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
+
+    public GameObject getFirstObject() {
+        for (int i = 0; i < this.list.length; i++) {
+            if (this.list[i] != null && this.list[i].isMoveable()) {
+                return this.list[i];
+            }
+        }
+        return null;
+    }
+
 
     public void moveObject(Inventory inv, GameObject go) {
 
